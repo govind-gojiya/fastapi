@@ -34,7 +34,7 @@ def create_answer(payload):
     result = []
 
     with open('data/alternatives.json') as stream:
-        alternatives = json(stream)
+        alternatives = json.load(stream)
 
     for question in payload['answers']:
         for alternative in alternatives:

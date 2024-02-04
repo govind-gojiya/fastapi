@@ -4,6 +4,8 @@ from starlette.responses import Response
 from app.db.models import UserAnswer
 from app.api import api
 
+import uvicorn
+
 app = FastAPI()
 
 
@@ -21,7 +23,7 @@ def read_user():
 def read_questions(position: int, response: Response):
     question = api.read_questions(position)
 
-    if question:
+    if not question:
         raise HTTPException(status_code=400, detail="Error")
 
     return question
@@ -42,3 +44,7 @@ def create_answer(payload: UserAnswer):
 @app.get("/result/{user_id}")
 def read_result(user_id: int):
     return api.read_result(user_id)
+
+
+if __name__ == "__main__":
+    uvicorn.run(app,host ='0.0.0.0',port = 8000)
